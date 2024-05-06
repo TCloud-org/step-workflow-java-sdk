@@ -32,6 +32,7 @@ public class StepWorkflowClient {
         final String serializedInput = Serializer.serializeAsString(input);
         final HttpRequest request = HttpRequest.newBuilder()
                 .uri(getURI(PRIVATE_ACCESS, VERSION_1, INITIATE_WORKFLOW_ENDPOINT))
+                .header("Content-Type", "application/json")
                 .method(getMethod(INITIATE_WORKFLOW_ENDPOINT), HttpRequest.BodyPublishers.ofString(serializedInput))
                 .build();
         final HttpResponse<byte[]> output = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
