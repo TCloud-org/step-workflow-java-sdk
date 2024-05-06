@@ -1,0 +1,8 @@
+{
+  "baseUrl": "http://wos-server-142456886.us-west-2.elb.amazonaws.com",
+  "api": {
+    "initiate-workflow": {
+      "method": "POST"
+    }
+  }
+}
