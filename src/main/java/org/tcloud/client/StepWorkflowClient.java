@@ -3,6 +3,7 @@ package org.tcloud.client;
 import com.tcloud.Serializer;
 import com.tcloud.model.InitiateWorkflowInput;
 import com.tcloud.model.InitiateWorkflowOutput;
+import com.tcloud.model.TriggerEmailNotificationWorkflowInput;
 import lombok.NonNull;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class StepWorkflowClient {
     private static final String PRIVATE_ACCESS = "private";
     private static final String VERSION_1 = "v1";
     public static final String INITIATE_WORKFLOW_ENDPOINT = "initiate-workflow";
+    public static final String TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT = "trigger-email-notification-workflow";
 
     private final HttpClient httpClient;
 
@@ -37,5 +39,15 @@ public class StepWorkflowClient {
                 .build();
         final HttpResponse<byte[]> output = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
         return Serializer.deserialize(output.body(), InitiateWorkflowOutput.class);
+    }
+
+    public void triggerEmailNotificationWorkflow(@NonNull final TriggerEmailNotificationWorkflowInput input) throws IOException, InterruptedException {
+        final String serializedInput = Serializer.serializeAsString(input);
+        final HttpRequest request = HttpRequest.newBuilder()
+                .uri(getURI(PRIVATE_ACCESS, VERSION_1, TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT))
+                .header("Content-Type", "application/json")
+                .method(getMethod(TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT), HttpRequest.BodyPublishers.ofString(serializedInput))
+                .build();
+        httpClient.send(request, HttpResponse.BodyHandlers.discarding());
     }
 }

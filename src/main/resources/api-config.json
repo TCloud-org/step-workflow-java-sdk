@@ -3,6 +3,9 @@
   "api": {
     "initiate-workflow": {
       "method": "POST"
+    },
+    "trigger-email-notification-workflow": {
+      "method": "POST"
     }
   }
 }
