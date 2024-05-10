@@ -4,6 +4,9 @@
     "initiate-workflow": {
       "method": "POST"
     },
+    "notify-workflow": {
+      "method": "POST"
+    },
     "trigger-email-notification-workflow": {
       "method": "POST"
     }
