@@ -45,15 +45,26 @@ public class StepWorkflowClient {
         return Serializer.deserialize(response.body(), responseType);
     }
 
+    public <T> void sendRequest(@NonNull final String endpoint,
+                                @NonNull final T input) throws IOException, InterruptedException {
+        final String serializedInput = Serializer.serializeAsString(input);
+        final HttpRequest request = HttpRequest.newBuilder()
+                .uri(getURI(PRIVATE_ACCESS, VERSION_1, endpoint))
+                .header("Content-Type", "application/json")
+                .method(getMethod(endpoint), HttpRequest.BodyPublishers.ofString(serializedInput))
+                .build();
+        httpClient.send(request, HttpResponse.BodyHandlers.discarding());
+    }
+
     public InitiateWorkflowOutput initiateWorkflow(@NonNull final InitiateWorkflowInput input) throws IOException, InterruptedException {
         return sendRequest(INITIATE_WORKFLOW_ENDPOINT, input, InitiateWorkflowOutput.class);
     }
 
     public void notifyWorkflow(@NonNull final NotifyWorkflowInput input) throws IOException, InterruptedException {
-        sendRequest(NOTIFY_WORKFLOW_ENDPOINT, input, Void.class);
+        sendRequest(NOTIFY_WORKFLOW_ENDPOINT, input);
     }
 
     public void triggerEmailNotificationWorkflow(@NonNull final TriggerEmailNotificationWorkflowInput input) throws IOException, InterruptedException {
-        sendRequest(TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, input, Void.class);
+        sendRequest(TRIGGER_EMAIL_NOTIFICATION_WORKFLOW_ENDPOINT, input);
     }
 }
