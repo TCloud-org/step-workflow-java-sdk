@@ -29,7 +29,7 @@ public class StepWorkflowClient {
 
     private StepWorkflowClient() {
         httpClient = HttpClient.newBuilder()
-                .version(HttpClient.Version.HTTP_1_1)
+                .version(HttpClient.Version.HTTP_2)
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .proxy(ProxySelector.of(new InetSocketAddress("http://wos.be.thecloudworlds.com", 8080)))
                 .authenticator(Authenticator.getDefault())
