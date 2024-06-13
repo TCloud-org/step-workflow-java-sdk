@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://wos.be.thecloudworlds.com",
+  "baseUrl": "http://wos.be.thecloudworlds.com:8080",
   "api": {
     "initiate-workflow": {
       "method": "POST"
