@@ -14,6 +14,7 @@ import java.net.ProxySelector;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 
 import static org.tcloud.config.ApiConfig.getMethod;
 import static org.tcloud.config.ApiConfig.getURI;
@@ -31,7 +32,8 @@ public class StepWorkflowClient {
         httpClient = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .followRedirects(HttpClient.Redirect.NORMAL)
-                .proxy(ProxySelector.of(new InetSocketAddress("http://wos.be.thecloudworlds.com", 8080)))
+                .connectTimeout(Duration.ofSeconds(20))
+                .proxy(ProxySelector.of(new InetSocketAddress("wos.be.thecloudworlds.com", 8080)))
                 .authenticator(Authenticator.getDefault())
                 .build();
     }
