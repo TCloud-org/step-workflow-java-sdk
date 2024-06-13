@@ -39,6 +39,7 @@ public class StepWorkflowClient {
         final HttpRequest request = HttpRequest.newBuilder()
                 .uri(getURI(PRIVATE_ACCESS, VERSION_1, endpoint))
                 .header("Content-Type", "application/json")
+                .header("User-Agent", "StepWorkflowJavaSDK/1.0")
                 .method(getMethod(endpoint), HttpRequest.BodyPublishers.ofString(serializedInput))
                 .build();
         final HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
@@ -54,6 +55,7 @@ public class StepWorkflowClient {
         final HttpRequest request = HttpRequest.newBuilder()
                 .uri(getURI(PRIVATE_ACCESS, VERSION_1, endpoint))
                 .header("Content-Type", "application/json")
+                .header("User-Agent", "StepWorkflowJavaSDK/1.0")
                 .method(getMethod(endpoint), HttpRequest.BodyPublishers.ofString(serializedInput))
                 .build();
         httpClient.send(request, HttpResponse.BodyHandlers.discarding());
