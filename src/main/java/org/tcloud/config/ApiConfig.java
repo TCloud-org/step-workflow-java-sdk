@@ -29,7 +29,8 @@ public final class ApiConfig {
         final JsonNode apiConfigNode = getApiConfigNode();
         final String baseUrl = apiConfigNode.get(BASE_URL).asText();
         final String url = String.join(DELIMITER, baseUrl, API, access, version, endpoint);
-        return URI.create(url + "/");
+        System.out.println("URL: " + url);
+        return URI.create(url);
     }
 
     public static String getMethod(@NonNull final String endpoint) throws IOException {
