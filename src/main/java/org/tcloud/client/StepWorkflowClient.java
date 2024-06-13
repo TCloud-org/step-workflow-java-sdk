@@ -42,6 +42,9 @@ public class StepWorkflowClient {
                 .method(getMethod(endpoint), HttpRequest.BodyPublishers.ofString(serializedInput))
                 .build();
         final HttpResponse<byte[]> response = httpClient.send(request, HttpResponse.BodyHandlers.ofByteArray());
+        if (response.statusCode() < 200 || response.statusCode() >= 300) {
+            throw new RuntimeException("Request failed with status code: " + response.statusCode() + " and body: " + new String(response.body()));
+        }
         return Serializer.deserialize(response.body(), responseType);
     }
 
