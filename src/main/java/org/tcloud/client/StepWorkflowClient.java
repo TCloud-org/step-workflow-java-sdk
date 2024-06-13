@@ -8,7 +8,6 @@ import com.tcloud.model.TriggerEmailNotificationWorkflowInput;
 import lombok.NonNull;
 
 import java.io.IOException;
-import java.net.Authenticator;
 import java.net.InetSocketAddress;
 import java.net.ProxySelector;
 import java.net.http.HttpClient;
@@ -34,7 +33,6 @@ public class StepWorkflowClient {
                 .followRedirects(HttpClient.Redirect.NORMAL)
                 .connectTimeout(Duration.ofSeconds(20))
                 .proxy(ProxySelector.of(new InetSocketAddress("wos.be.thecloudworlds.com", 8080)))
-                .authenticator(Authenticator.getDefault())
                 .build();
     }
 
